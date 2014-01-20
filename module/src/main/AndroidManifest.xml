@@ -25,6 +25,16 @@
         android:icon="@drawable/ic_launcher"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:value="true"
+            android:name="xposedmodule" />
+        <meta-data
+            android:value="2.1*"
+            android:name="xposedminversion" />
+        <meta-data
+            android:value="Imporve HTTP performance"
+            android:name="xposeddescription" />
+
     </application>
 
 </manifest>
