@@ -14,13 +14,14 @@ import java.util.Objects;
 import java.util.concurrent.Callable;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
+import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
-public class XposedHook implements IXposedHookLoadPackage {
+public class XposedHook implements IXposedHookZygoteInit {
 
     private static URLStreamHandlerFactory other = null;
 
@@ -41,7 +42,7 @@ public class XposedHook implements IXposedHookLoadPackage {
     };
 
     @Override
-    public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
+    public void initZygote(StartupParam startupParam) throws Throwable {
         URL.setURLStreamHandlerFactory(sFactory);
         XposedHelpers.findAndHookMethod(URL.class, "setURLStreamHandlerFactory", URLStreamHandlerFactory.class, new XC_MethodReplacement() {
             @Override
@@ -55,6 +56,5 @@ public class XposedHook implements IXposedHookLoadPackage {
             }
         });
     }
-
 
 }
